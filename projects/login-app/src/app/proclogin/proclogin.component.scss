@@ -1,0 +1,324 @@
+/* Common SCSS */
+* {
+    //  margin: 0px;
+  
+    // padding: 0px;
+  }
+  
+  /* Common SCSS ENDS*/
+  .login-out {
+    display: flex;
+    height: calc(100vh);
+    background: #fff;
+  }
+  
+  
+  .login-out>section:first-of-type {
+    width: 45%;
+    display: flex;   
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .login-out>section:last-of-type {
+    width: 55%;
+    height: 100%;
+    background: url(../../assets/login/LoginScreen_bgImage.svg) no-repeat;
+    background-size: 100%;
+    background-position: center 65%;
+    //border-bottom: 1px solid #c6cbcd;
+  }
+  
+  .login {
+    color: #4f52ff;
+    font-weight: 500;
+    font-size: 35px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: row;
+    font-family: 'Open sans', sans-serif;
+    margin-bottom: 16px;
+  }
+  
+  .login>div:not(.img-advise) {
+    margin-bottom: 40px;
+  }
+  
+  .login-text {
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: block;
+  }
+  
+  .dashboard-text {
+    font-weight: 900;
+    display: block;
+  }
+  
+  #togglePassId {
+    margin-left: -30px;
+    cursor: pointer;
+    color: #7d848c;
+  }
+  
+  .img-advise {
+    cursor: pointer;
+    text-align: center;
+  
+    img {
+      height: 200px;
+      width: auto;
+      position: relative;
+      left: 140px;
+    }
+  }
+  
+  .contctDiv {
+    width: 80%;
+    margin-top: 20px;
+  
+    p {
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.01em;
+    }
+  }
+  
+  .agreement-row {
+  
+    p {
+      padding: 8px 10px;
+      border-left: 1px solid #c6cbcd;
+      margin-top: 10px;
+      color: #c6cbcd;
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+  
+      .link,
+      a {
+        text-decoration: none;
+        color: #0084f6;
+      }
+    }
+  }
+  
+  .forgot-text {
+    cursor: pointer;
+    color: #4f52ff;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  
+  .y-input>input::placeholder {
+    font-weight: 500;
+    font-size: 13px;
+  }
+  
+  .forgot-password {
+    margin: 0px auto 4px;
+    text-align: right;
+  }
+  
+  ul.social-icons li .icons {
+    font-family: FontAwesome;
+    margin: 0px 5px;
+    font-size: 20px;
+  }
+  
+  ul.social-icons li {
+    display: inline;
+  }
+  
+  ul.social-icons {
+    padding: 5px 0px;
+  }
+  
+  .w80 {
+    margin-top: 12px;
+  }
+  
+  .invalid-alert {
+    color: red;
+    padding: 4px 0px;
+    font-weight: 400;
+    margin-left: 2px;
+    letter-spacing: 0.01em;
+  }
+  
+  .y-input {
+    width: 100%;
+  
+    &>input {
+      font-size: 13px;
+      width: 100%;
+      margin: 10px auto;
+      padding: 10px 20px;
+      display: inline-block;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      box-shadow: 0px 0px 5px 0px #c6cbcd;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+  
+      &:focus {
+        border: solid 2px #0084f6;
+        outline: none;
+        font-weight: 500;
+      }
+  
+    }
+  
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      font-weight: inherit;
+      font-size: 13px;
+    }
+  }
+  
+  .login-out>section:first-of-type>div {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .login-btn2 {
+    width: 100%;
+    background-color: #4f52ff;
+    color: white;
+    padding: 0px 20px;
+    margin: 8px 0;
+    font-size: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    min-height: 40px;
+    line-height: 40px;
+    letter-spacing: 0.01em;
+  }
+  
+  .login-logo {
+    position: fixed;
+    top: 16px;
+    right: 19px;
+    height: 50px;
+  }
+  
+  ::ng-deep .myModal .modal-header {
+    display: none;
+  }
+  
+  input[type=checkbox],
+  input[type=radio] {
+    appearance: auto;
+  }
+  
+  ::ng-deep .myModal .modal-footer {
+    display: none;
+  }
+  
+  .modal-header::after,
+  .modal-header::before {
+    display: none;
+  }
+  
+  .h-w64 {
+    height: 362px;
+  }
+  
+  .multiple-u>p {
+    font-size: 12px;
+    margin: 12px 40px 12px 0px;
+    width: 80%;
+  }
+  
+  .multiple-u>h2 {
+    padding: 10px 80px 0px 0px;
+    color: #58666e;
+    font: 700 14px/20px Open Sans, sans-serif;
+  }
+  
+  .multiple-u>div>div {
+    margin: 10px 0px;
+    margin-bottom: 0;
+    cursor: pointer;
+    padding: 15px;
+    box-shadow: 1px 1px 10px 0 rgb(0 0 0 / 15%), 0 0 2px 0 rgb(0 0 0 / 20%);
+  }
+  
+  .multiple-u>div>div::after {
+  
+    content: '\2794';
+    color: #58666e;
+    font-size: 20px;
+    float: right;
+  }
+  
+  .h-w64.cen-t {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .multiple-u>button {
+    float: right;
+    color: #109CF1;
+    cursor: pointer;
+    margin-top: 16px;
+    background: transparent;
+    font-weight: 600;
+  }
+  
+  #multiLoginForgot .field-radio-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Responsive CSS by Vishakha */
+  
+  @media only screen and (max-width: 860px) {
+    .login-out {
+      display: block;
+      padding: 90px 16px 0px;
+    }
+  
+    .login-out>section:first-of-type {
+      width: 100%;
+    }
+  
+  
+    .login-out>section:last-of-type {
+      display: none;
+    }
+  
+    .login {
+      font-size: 25px;
+    }
+  
+    .login-text {
+      margin-bottom: 12px;
+    }
+  
+    .img-advise img {
+      height: auto;
+      width: 100%;
+      position: initial;
+      max-height: 135px;
+      margin-left: 12px;
+    }
+  }
+  .close-modal{
+    width: 12px;
+  }

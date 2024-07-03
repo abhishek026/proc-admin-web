@@ -1,1 +1,140 @@
-<p>proclogin works!</p>
+<section class="login-out">
+    <section>
+      <form [formGroup]="loginForm">
+        <div class="login">
+          <div>
+            <span class="login-text">
+              Login To
+            </span>
+            <span class="dashboard-text">Dashboard</span>
+          </div>
+          <div class="img-advise">
+            <a href="https://proctur.com/website/contact-us" target="_blank">
+              <img src="../../assets/login/getadvice.png" class="get_advise">
+            </a>
+          </div>
+        </div>
+        <div class="h-w64" *ngIf="hideLoginPage">
+          <div class="y-input"><input type="text" formControlName="user_name" placeholder="Mobile or Email-id" required=""
+              autocomplete="user_name">
+            <!-- <div class="invalid-alert" *ngIf="submited && loginForm.controls.user_name.errors">
+              <div>
+                Please enter Mobile No or Email
+              </div>
+            </div> -->
+          </div>
+          <div class="y-input"><input  type="{{passwordType}}" formControlName="password" placeholder="Password" required=""
+            autocomplete="password"><i   class="{{passwordClass}}" id="togglePassId" (click)="togglePassword()"></i>
+            
+          <!-- <div *ngIf="submited && loginForm.controls.password.errors" class="invalid-alert">
+            <div>
+              Please enter password
+            </div>
+          </div> -->
+        </div>
+          <div class="forgot-password"><a class="forgot-text" (click)=" forgotPassword()">Forgot Password?</a></div>
+          <div>
+            <button class="login-btn2" (click)="doLogin()">Secure Login</button>
+          </div>
+          <div class=" contctDiv">
+            <p>
+              Need help? Contact us on 9971839153
+            </p>
+          </div>
+          <div class="agreement-row">
+            <p>
+              By signing in, you agree to
+              <a href="https://proctur.com/website/privacy-policy" target="_blank">Privacy Policy</a> and
+              <a href="https://proctur.com/website/terms" target="_blank">Terms of Use</a>.
+            </p>
+          </div>
+          <div class=" w80 display-c">
+            <div>
+              <ul class="social-icons">
+                <li>
+                  <a href="https://www.facebook.com/proctur" class="social-icon" target="_blank">
+                    <i class="icons fab fa-facebook-square"></i>
+                  </a>
+                </li>
+  
+                <li>
+                  <a href="https://twitter.com/proctur_in" class="social-icon" target="_blank">
+                    <i class="icons fab fa-twitter-square"></i>
+                </a>
+                </li>
+  
+                <li>
+                  <a href="https://bit.ly/2t4XFbM" class="social-icon" target="_blank">
+                    <i class="icons fab fa-youtube-square"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/proctur_your_pocket_classroom/" class="social-icon" target="_blank">
+                    <i class="icons fab fa-instagram"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/company/proctur" class="social-icon" target="_blank">
+                    <i class="icons fab fa-linkedin-square"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+         <p>
+              Use Google Chrome , for the best possible user experience with Proctur
+        </p>
+        </div>
+        <div style="margin-bottom: 36%" *ngIf="isMultiLogin == true">
+          <div class="multiple-u">
+  
+            <p>You are registered with multiple roles, kindly select one to continue</p>
+  
+  
+            <h2 class="insititue-list-header">Login as</h2>
+  
+            <div>
+  
+              <div class="field-institute-wrapper" *ngFor="let account of accounts" (click)="selectLogIn(account)">
+                {{account.name}}( {{account.display}} - {{account.institute_id}} )
+              </div>
+            </div>
+            <button (click)="close()">
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div style="margin-bottom: 36%" *ngIf="isInstExpire">
+          <div class="multiple-u">
+  
+            <h2 style="margin-left: 100px;" [innerHTML]="msg"></h2>
+          </div>
+        </div>
+      </form>
+    </section>
+    <section></section>
+  </section>
+  <img src="../../assets/login/logo.svg" class="login-logo">
+  <div id="multiLoginForgot" *ngIf="false"class="modal" role="dialog" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" style="margin-bottom: 0;">Forgot Password For:</h2>
+                <button type="button" class="close bg-transparent" (click)="closePopup()" data-bs-dismiss="modal"><img src="../../../../assets/images/common/common_icon/modal_close.svg" class="close-modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 15px;min-height: 40vh;">
+              <div *ngFor="let d of multiLoginForgotPwdData;let i=index;">
+                <div  class="field-radio-wrapper" style=" padding-left: 6px;">
+                  <input type="radio" [checked]="d.checked"  class="form-checkbox" style="margin: 0px 10px 0px 0px; width: 15px;"
+                    (change)="onForgotPwdSelection($event,d)" [id]="'radio-'+i" [value]="d.user_id+d.display" [(ngModel)]="forgotPasswordObj.temp_id">
+                  <label [for]="'radio-'+i"></label>
+                  <p style="color:#0084f6; margin-bottom: 0px;display: inline;">{{d.name}} ({{d.display}}) ({{d.institute_name}})</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer" style="padding: 5px;">
+                <button type="button" [disabled]="forgotPasswordObj.userid =='' || forgotPasswordObj.userid == null" class="btn btn-default" (click)="forgotPassword()">Reset Password</button>
+            </div>
+        </div>
+    </div>
+  </div>
