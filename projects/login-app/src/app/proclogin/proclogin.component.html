@@ -17,20 +17,20 @@
         <div class="h-w64" *ngIf="hideLoginPage">
           <div class="y-input"><input type="text" formControlName="user_name" placeholder="Mobile or Email-id" required=""
               autocomplete="user_name">
-            <!-- <div class="invalid-alert" *ngIf="submited && loginForm.controls.user_name.errors">
-              <div>
+              <div class="invalid-alert" *ngIf="submited && loginForm.controls['user_name'].errors">
+                <div>
                 Please enter Mobile No or Email
               </div>
-            </div> -->
+            </div>
           </div>
           <div class="y-input"><input  type="{{passwordType}}" formControlName="password" placeholder="Password" required=""
             autocomplete="password"><i   class="{{passwordClass}}" id="togglePassId" (click)="togglePassword()"></i>
             
-          <!-- <div *ngIf="submited && loginForm.controls.password.errors" class="invalid-alert">
+          <div *ngIf="submited && loginForm.controls['password'].errors" class="invalid-alert">
             <div>
               Please enter password
             </div>
-          </div> -->
+          </div>
         </div>
           <div class="forgot-password"><a class="forgot-text" (click)=" forgotPassword()">Forgot Password?</a></div>
           <div>

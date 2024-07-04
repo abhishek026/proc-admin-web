@@ -1,0 +1,224 @@
+/* Common SCSS */
+* {
+    margin: 0px;
+  
+    padding: 0px;
+  }
+  
+  /* Common SCSS ENDS*/
+.bg-img-virtual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-color: #fff;
+}
+
+.top-logo {
+    text-align: center;
+    max-height: 80px;
+}
+#togglePassId {
+  margin-left: -30px;
+  cursor: pointer;
+  color: #7d848c;
+}
+.login-virtual {
+    height: auto;
+    font-family: 'Open sans', sans-serif;
+    padding: 2vh 32px 5vh;
+    margin: 16px auto;
+    width: 400px;
+    border-radius: 4px;
+    background: white;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%), 0 0 2px 0 rgb(0 0 0 / 20%);
+    overflow: hidden;
+    transition: left 0.1s cubic-bezier(0.175, 0.885, 0.26, 1.055);
+}
+
+.login-virtual>h2 {
+    text-align: center;
+    color: #58666e;
+    margin-bottom: 0px;
+    font: 700 14px/40px Open Sans, sans-serif;
+}
+
+.login-virtual input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    outline: none;
+    border: solid 1px #e2ebee;
+    background: #fff;
+    font: 400 12px 'Open sans', sans-serif;
+    box-shadow: none;
+    border-radius: 0;
+    color: #000;
+    height: 35px;
+    padding-left: 4px;
+    margin-top: 16px;
+}
+
+.invalid-alert {
+    color: red;
+    padding: 8px 0px ;
+    font-weight: 400;
+    margin-left: 2px;
+    letter-spacing: 0.01em;
+    font-size: 14px;
+}
+
+.login-btn2 {
+    width: 100%;
+    background-color: #4f52ff;
+    color: white;
+    padding: 0px 20px;
+    margin: 8px 0;
+    font-size: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    min-height: 40px;
+    margin-top: 16px;
+    line-height: 40px;
+    letter-spacing: 0.01em;
+}
+
+.forgot-text {
+    cursor: pointer;
+    color: #4f52ff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 12px;
+}
+
+.contctDiv {
+    margin-top: 16px;
+
+    p {
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.01em;
+    }
+}
+
+.user-ex {
+    margin-top: 15px;
+    text-align: left;
+    font-size: 12px;
+    color: #333;
+    letter-spacing: 0.01em;
+
+    a {
+        color: #0084f6;
+        font-weight: 600;
+        text-decoration: none;
+    }
+}
+.display-f{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px
+}
+.white_button{
+    background-color: #fff;
+      color: #109CF1;
+      padding: 0px 16px;
+      font-size: 12px;
+      border:1px solid #109CF1;
+      border-radius: 5px;
+      font-weight: 500;
+      line-height: 30px;
+}
+.blue_button {
+    background-color: #109CF1;
+    color: white;
+    padding: 0px 16px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    height: 30px;
+  }
+  .display-f>button{
+      width: calc(50% - 8px);
+  }
+  .inis_name{
+    margin: 0px 0px 24px;
+    cursor: pointer;
+    padding: 15px;
+    box-shadow: 1px 1px 10px 0 rgb(0 0 0 / 15%), 0 0 2px 0 rgb(0 0 0 / 20%);
+  }
+  .isni_data{
+      margin: 0px 0px 24px;
+  }
+  .course-list{
+      overflow-y: auto;
+      max-height: 460px;
+      &::-webkit-scrollbar{
+          width: 4px;
+      }
+      &>div{
+          display: flex;
+          margin-bottom: 12px;
+      }
+  }
+  /* Checkbox */
+  .checkbox {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-gap: 0.5em;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+  
+  .checkbox__input input {
+    opacity: 0;
+    width: 0em;
+    height: 0em;
+  }
+  
+  .checkbox__control {
+    display: inline-grid;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #978E8E;
+    border-radius: 3px;
+    border-radius: 0.1em;
+  }
+  
+  .checkbox__input {
+    display: grid;
+    grid-template-areas: "checkbox";
+  }
+  
+  .checkbox__control svg {
+    color: #fff;
+    background: #109CF1;
+    border-radius: 3px;
+    padding: 4px;
+    transition: transform 0.1s ease-in 25ms;
+    transform: scale(0);
+    stroke-width: 4;
+    transform-origin: bottom left;
+  }
+  
+  .checkbox__input input:checked+.checkbox__control svg {
+    transform: scale(1);
+  }
+  
+  .checkbox__input input:checked+.checkbox__control {
+    border: none;
+  }
+  
+  .checkbox__input input:checked+.checkbox__control {
+    border: none;
+  }

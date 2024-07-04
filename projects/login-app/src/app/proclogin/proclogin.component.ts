@@ -1,8 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-proclogin',
@@ -35,6 +36,7 @@ export class ProcloginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _router: Router,
     private titleService: Title,
+    private http: HttpClient
   ) {
     //this.messages = msgService.getMessages();
     let data = JSON.parse(sessionStorage.getItem('idata')!);
@@ -70,6 +72,7 @@ export class ProcloginComponent implements OnInit {
     this.titleService.setTitle('Proctur -Simplifying Education Management');
   }
   doLogin() {
+    debugger
     this.submited = true
     if (this.loginForm.invalid) {
       return;
@@ -78,10 +81,19 @@ export class ProcloginComponent implements OnInit {
   }
 
   login(data: any) {
-    // if (data.user_name) {
-    //   data.user_name = data.user_name.trim();
-    // }
-    // sessionStorage.clear();
+    if (data.user_name) {
+       data.user_name = data.user_name.trim();
+    }
+    sessionStorage.clear();
+    const apiUrl=environment.ApiUrl + '/api/v2/user/v3/login?is_admin=true';
+    this.http.post(apiUrl,data).subscribe((res:any)=>{
+      debugger
+      let result=res.result;
+    },(error:any)=>{
+      debugger
+      alert(error.error.message);
+    }
+    )
     // this._accountUtilService.showLoader();
     // this._userService.doLogin(data).subscribe(async (res: any) => {
       

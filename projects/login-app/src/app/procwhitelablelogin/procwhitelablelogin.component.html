@@ -1,1 +1,510 @@
-<p>procwhitelablelogin works!</p>
+<div class="bg-img-virtual">
+    <div class="top-logo" *ngIf="instLogoURL !=''">
+        <img style="height: 100px;margin-top: -15px;" [src]="instLogoURL">
+    </div>
+    <form *ngIf="isView=='login'" [formGroup]="loginForm">
+        <div class="login-virtual">
+            <h2>
+                Login To Dashboard
+            </h2>
+            <ng-container *ngIf="isMultiLogin == false">
+                <input type="text" formControlName="user_name" placeholder="Mobile or Email-id" required
+                    autocomplete="user_name" />
+                <div class="invalid-alert" *ngIf="submited && loginForm.controls.user_name.errors">
+                    <div>
+                        Enter valid Mobile or Email-id
+                    </div>
+                </div>
+                <input type="{{passwordType}}" formControlName="password" placeholder="Password" required
+                    autocomplete="password"><i class="{{passwordClass}}" id="togglePassId"
+                    (click)="togglePassword()"></i>
+                <div *ngIf="submited && loginForm.controls.password.errors" class="invalid-alert">
+                    <div>
+                        Please enter password
+                    </div>
+                </div>
+
+                <div class="forgot-password"><a class="forgot-text" (click)=" forgotPassword()">Forgot Password?</a>
+                </div>
+                <div class="login-field-btn">
+                    <p class="user-ex"> If you don't have account? <a (click)="registerUser()">&nbsp;Register Here</a>
+                    </p>
+                </div>
+                <button class="login-btn2" (click)="doLogin()">Secure Login</button>
+                <div class="contctDiv">
+                    <p> Need help? Contact us on 9971839153 </p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="isMultiLogin == true">
+                <div style="margin-bottom: 36%" *ngIf="isMultiLogin == true">
+                    <div class="multiple-u">
+
+                        <p>You are registered with multiple roles, kindly select one to continue</p>
+
+
+                        <h2 class="insititue-list-header">Login as</h2>
+
+                        <div>
+
+                            <div class="field-institute-wrapper" *ngFor="let account of accounts"
+                                (click)="selectLogIn(account)">
+                                {{account.name}}( {{account.display}} - {{account.institute_id}} )
+                            </div>
+                        </div>
+                        <button (click)="close()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+    <!-- Register -->
+    <div *ngIf="isView=='register'" class="login-virtual">
+        <h2>
+            Register
+        </h2>
+        <input type="text" placeholder="Name" [(ngModel)]="loginDataForm.name" #name="ngModel" autocomplete="on"
+            required />
+        <div class="invalid-alert" *ngIf="name.invalid && (name.dirty || name.touched)" class="alert invalid-alert">
+            <div>
+                Enter Full User Name
+            </div>
+        </div>
+        <input type="text" placeholder="Enter Email-id" required [(ngModel)]="loginDataForm.alternate_email_id" required
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z]+\.[a-zA-Z.]{2,5}$" #emailid="ngModel" name="emailid" id="emailid"
+            autocomplete="on" />
+        <div class="invalid-alert" *ngIf="emailid.invalid && (emailid.dirty || emailid.touched )"
+            class="alert invalid-alert">
+            <div>
+                Enter valid Email-id
+            </div>
+        </div>
+        <input type="text" placeholder="Enter Mobile" autocomplete="on" [(ngModel)]="loginDataForm.mobile_no"
+            id="mobile_no" #mobile_no="ngModel" maxlength="10" minlength="10"
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" required />
+        <div class="invalid-alert" *ngIf="mobile_no.invalid && (mobile_no.dirty || mobile_no.touched )">
+            <div>
+                Enter valid Mobile
+            </div>
+        </div>
+        <input type="password" placeholder="Password" required [(ngModel)]="loginDataForm.password" name="password"
+            id="password" #password="ngModel" autocomplete="">
+        <div class="invalid-alert" *ngIf="password.invalid && (password.dirty || password.touched )">
+            <div>
+                Please enter password
+            </div>
+        </div>
+        <input type="password" placeholder="Re-Enter Password" [(ngModel)]="loginDataForm.confirmPassword"
+            name="confirmPassword" id="confirmPassword" #confirmPassword="ngModel" required autocomplete="">
+        <div class="invalid-alert"
+            *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched || no_email_found)"
+            class="alert invalid-alert">
+            <div>
+                Please enter same password
+            </div>
+        </div>
+        <div class="display-f">
+            <button class="link_button me-2" (click)="isView='login'">Cancel</button>
+            <button class="blue_button" (click)="register()">Submit</button>
+        </div>
+    </div>
+    <!-- Select Institute -->
+    <div *ngIf="isView=='institute'" class="login-virtual">
+        <h2>
+            Select Institute
+        </h2>
+        <p class="isni_data">
+            You are registered with multiple Institutes, Kindly select one to Continue.
+        </p>
+        <a *ngFor="let institute of instituteListArr">
+            <div class="inis_name" (click)="alternateLoginMultiInstituteData(institute.institute_id)">
+                {{institute.institute_name}}
+            </div>
+        </a>
+
+    </div>
+    <!-- If Institute Expire-->
+    <div *ngIf="isView=='institute_expire'" class="login-virtual">
+        <h2>
+            <!-- Select Institute -->
+        </h2>
+        <p class="isni_data" [innerHTML]="msg">
+        </p>
+
+
+    </div>
+    <!-- Select Courses -->
+    <div *ngIf="isView=='course'" class="login-virtual">
+        <h2>
+            Select Courses
+        </h2>
+        <br>
+
+        <div class="inis_name">
+            <div class="course-list">
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Maths</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>English</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Science</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Computer</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>HTML</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Maths</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>English</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Science</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Computer</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>HTML</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Maths</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>English</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Science</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Computer</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>HTML</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Maths</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>English</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Science</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Computer</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>HTML</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Maths</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>English</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Science</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Computer</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>HTML</p>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <span class="checkbox__input">
+                            <input type="checkbox" name="marks">
+                            <span class="checkbox__control">
+                                <svg viewBox='0 0 24 24' aria-hidden="true" focusable="false">
+                                    <path fill='none' stroke='currentColor' d='M1.3 12.91l6.37 6.37L22.79 4.59' />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <p>Maths</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- Enter OTP -->
+    <div *ngIf="isView=='otp'" class="login-virtual">
+        <h2>
+            Enter One Time Password
+        </h2>
+        <p class="isni_data">
+            One Time Password (OTP) has been sent to your mobile and/or email, please enter to login.
+        </p>
+        <input type="text" placeholder="Enter OTP" [(ngModel)]="otpVerificationInfo.otp_code" maxlength="4"
+            name="otpData" id="otpData" #otpData="ngModel" enquiryInput required>
+        <div class="forgot-password" *ngIf="counter == 0">
+            <a class="forgot-text" (click)="alternateLoginOTPRegenerate()">Resend OTP</a>
+        </div>
+        <div class="forgot-password" *ngIf="counter != 0">
+            <p class="forgot-text">Resend OTP in 00:{{countDown | async}}</p>
+        </div>
+        <div class="display-f">
+            <div></div>
+            <button class="blue_button" (click)="alternateLoginOTPVerification()">Verify</button>
+        </div>
+    </div>
+</div>
