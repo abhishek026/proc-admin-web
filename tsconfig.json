@@ -3,7 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@proc-admin-web/shared-services": ["libs/shared-services/src"]
+      "@proc-admin-web/shared-services": ["libs/shared-services/src"],
+      "@proc-admin-web/shared-components": ["libs/shared-components/src/lib"]
+
     },
    // "baseUrl": "./",
     "outDir": "./dist/out-tsc",

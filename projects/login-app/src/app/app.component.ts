@@ -10,8 +10,5 @@ export class AppComponent {
   title = 'login-app';
 
   constructor(private toasterservice: ToasterService){
-    debugger
-    this.toasterservice.showError("Hi, I am");
-
   }
 }

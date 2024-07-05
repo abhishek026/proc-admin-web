@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { HttpService,ToasterService } from '@proc-admin-web/shared-services';
+import { HttpService,ToasterService,LoaderService } from '@proc-admin-web/shared-services';
 @Component({
   selector: 'app-proclogin',
   //standalone: true,
@@ -38,7 +38,8 @@ export class ProcloginComponent implements OnInit {
     private titleService: Title,
     private http: HttpClient,
     private httpservice : HttpService,
-    private toasterservice: ToasterService
+    private toasterservice: ToasterService,
+    private loaderservice: LoaderService
   ) {
     //this.messages = msgService.getMessages();
     let data = JSON.parse(sessionStorage.getItem('idata')!);
@@ -74,7 +75,7 @@ export class ProcloginComponent implements OnInit {
     this.titleService.setTitle('Proctur -Simplifying Education Management');
   }
   doLogin() {
-    debugger
+    this.loaderservice.show();
     let msg=this.httpservice.getMessage();
     this.submited = true
     if (this.loginForm.invalid) {
@@ -90,12 +91,11 @@ export class ProcloginComponent implements OnInit {
     sessionStorage.clear();
     const apiUrl=environment.ApiUrl + '/api/v2/user/v3/login?is_admin=true';
     this.http.post(apiUrl,data).subscribe((res:any)=>{
-      debugger
       let result=res.result;
+      this.loaderservice.hide();
     },(error:any)=>{
-      debugger
       this.toasterservice.showError(error.error.message);
-     // alert(error.error.message);
+      this.loaderservice.hide();
     }
     )
     // this._accountUtilService.showLoader();
