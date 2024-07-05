@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ToasterService } from '@proc-admin-web/shared-services';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'login-app';
+
+  constructor(private toasterservice: ToasterService){
+    debugger
+    this.toasterservice.showError("Hi, I am");
+
+  }
 }
