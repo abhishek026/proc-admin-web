@@ -32,6 +32,7 @@ export class ProcloginComponent implements OnInit {
   hideLoginPage: boolean = true;
   msg: any;
   loginForm!: FormGroup;
+  timeZoneVal: string;
   constructor(
     private formBuilder: FormBuilder,
     private _router: Router,
@@ -49,6 +50,8 @@ export class ProcloginComponent implements OnInit {
     else{
       sessionStorage.clear()
      }
+     this.timeZoneVal=Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   }
   loginToSubBranch(instData: any) {
     // this.logins.loginToSubBranch(instData.s_inst_id).subscribe(
